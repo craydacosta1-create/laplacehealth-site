@@ -1,0 +1,222 @@
+/* Laplace Health: fonte, cores e as peças próprias do site (o resto vem de assets/, o kit de design) */
+@font-face { font-family: "Instrument Sans"; src: url("fonts/instrument-sans-latin.woff2") format("woff2"); font-weight: 400 600; font-style: normal; font-display: swap; }
+@font-face { font-family: "Instrument Sans"; src: url("fonts/instrument-sans-italico-latin.woff2") format("woff2"); font-weight: 400; font-style: italic; font-display: swap; }
+:root {
+  --p-bg: #f6f7fb; --p-surface: #ffffff; --p-ink: #0b1033; --p-muted: #686f89;
+  --p-accent: #00076b; --p-accent-ink: #f6f7fb; --p-action: #00076b; --p-action-ink: #f6f7fb;
+  --p-inv-bg: #0b1033; --p-inv-surface: #171e40; --p-inv-ink: #f6f7fb; --p-inv-muted: #9297ab;
+  --p-inv-accent: #f6f7fb; --p-inv-accent-ink: #0b1033; --p-inv-action: #f6f7fb; --p-inv-action-ink: #0b1033;
+  --font-display: "Instrument Sans", system-ui, sans-serif;
+  --font-text: "Instrument Sans", system-ui, sans-serif;
+  --font-mono: ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
+  --display-weight: 500;
+  --display-tracking: -0.02em;
+  --display-tracking-xl: -0.03em;
+  --ly-scale: .88; /* Instrument Sans é larga: o título do herói cabe em 3 linhas */
+  --teal: #00aaac; /* o pico do logo: só em detalhes, nunca em texto sobre fundo claro */
+}
+
+  /* o logo da Laplace no lugar da marca do kit */
+  .nav__logo img { width: 34px; height: 34px; }
+
+  /* HERO: o celular com a conversa de WhatsApp (dados fictícios) */
+  .hero__media.wa-stage { display: grid; place-items: center; isolation: isolate; }
+  .device { width: min(320px, 82%); max-height: calc(100% - 48px); aspect-ratio: 9 / 17.5; border-radius: 36px; background: #0f2624; padding: 10px; box-shadow: 0 24px 48px -24px rgba(15, 38, 36, .45); }
+  .wa { height: 100%; border-radius: 28px; overflow: hidden; display: flex; flex-direction: column; background: #efeae2; font-size: 13.5px; line-height: 1.4; }
+  .wa__top { display: flex; align-items: center; gap: 10px; padding: 14px 14px 10px; background: #075e54; color: #fff; }
+  .wa__av { width: 32px; height: 32px; border-radius: 50%; background: #f6f5f0; display: grid; place-items: center; flex: none; }
+  .wa__av img { width: 22px; height: 22px; }
+  .wa__name { font-weight: 500; font-size: 14px; line-height: 1.2; }
+  .wa__st { font-size: 12px; opacity: .85; }
+  .wa__body { flex: 1; display: flex; flex-direction: column; gap: 6px; padding: 12px 10px; overflow: hidden; }
+  .wa__day { align-self: center; background: #fff; color: #54656f; font-size: 12px; padding: 3px 10px; border-radius: 8px; margin-bottom: 4px; }
+  .wa__msg { max-width: 82%; padding: 6px 9px 4px; border-radius: 9px; color: #111b21; box-shadow: 0 1px 0 rgba(0,0,0,.08); }
+  .wa__msg--in { align-self: flex-start; background: #fff; border-top-left-radius: 2px; }
+  .wa__msg--out { align-self: flex-end; background: #d9fdd3; border-top-right-radius: 2px; }
+  .wa__msg time { display: block; text-align: right; font-size: 11px; color: #667781; margin-top: 2px; }
+  .wa__in { display: flex; align-items: center; gap: 8px; padding: 8px 10px 12px; }
+  .wa__field { flex: 1; background: #fff; border-radius: 18px; padding: 8px 12px; color: #667781; font-size: 13px; }
+  .wa__send { width: 34px; height: 34px; border-radius: 50%; background: #00a884; flex: none; }
+  @media (max-width: 1023px) { .device { width: 220px; max-height: none; } }
+  @media (max-width: 639px) { .hero__media.wa-stage { min-height: 300px; } .device { width: 220px; aspect-ratio: 9 / 15; } .wa__body .wa__msg:nth-of-type(2), .wa__body .wa__msg:nth-of-type(3) { display: none; } .wa__body { gap: 4px; } .wa__body .wa__msg--out { font-size: 12.5px; } }
+
+  /* APP-FRAME: o painel da Grace (recipe app-frame) */
+  .app.ui { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); margin-top: var(--s-7); background: var(--u-bg); border: 1px solid var(--u-border); border-radius: var(--u-r); box-shadow: var(--u-shadow); }
+  .app > .app__pane { position: relative; min-width: 0; min-height: 0; overflow: hidden; }
+  .app > .app__pane + .app__pane { border-left: 1px solid var(--u-line); }
+  .app > .app__pane > .ui-panel { width: 100%; border: 0; border-radius: 0; box-shadow: none; }
+  .app > .app__pane::after { content: ""; position: absolute; inset: auto 0 0 0; height: 64px; background: linear-gradient(transparent, var(--u-bg)); pointer-events: none; }
+  @media (min-width: 1024px) and (max-width: 1279px) { .app.ui { grid-template-columns: minmax(0, 4fr) minmax(0, 8fr); } }
+  @media (max-width: 1023px) {
+    .app.ui { grid-template-columns: minmax(0, 1fr); grid-template-rows: auto minmax(0, 1fr); }
+    .app > .app__pane--list { max-height: 252px; }
+    .app > .app__pane--list::after { display: none; }
+    .app .ui-win__side { display: none; }
+    .app .ui-win__body { grid-template-columns: minmax(0, 1fr); }
+    .app > .app__pane + .app__pane { border-left: 0; border-top: 1px solid var(--u-line); }
+  }
+  @media (max-width: 639px) {
+    .app.ui { grid-template-rows: minmax(0, 1fr); }
+    .app > .app__pane--list { display: none; }
+    .app > .app__pane + .app__pane { border-top: 0; }
+  }
+  .app .ui-calendar { max-width: none; }
+  .works-with { display: flex; flex-wrap: wrap; align-items: center; gap: var(--s-3) var(--s-5); margin-top: var(--s-5); }
+
+  .principles { margin-top: var(--s-9); }
+  .principles h3 { font-size: var(--t-card); margin: 0 0 var(--s-3); }
+  .principles p { margin: 0; }
+  @media (max-width: 1023px) { .principles { margin-top: var(--s-7); } .principles > div { grid-column: 1 / -1; } }
+  /* QUEM FAZ: as duas marcas, a curva de Laplace e o símbolo da Grace */
+  .marks { display: grid; grid-template-rows: 1fr 1fr; gap: var(--s-5); }
+  .marks__tile { border-radius: var(--r-lg); display: grid; place-items: center; }
+  .marks__tile--laplace { background: #ffffff; border: 1px solid rgba(11, 16, 51, .10); }
+  .marks__tile--grace { background: #e3f5f1; }
+  .marks__tile svg { width: min(62%, 360px); height: auto; }
+  .marks__tile img { width: min(34%, 180px); height: auto; }
+
+/* PRODUTOS: a conversa curta de WhatsApp dentro de cada cartão (dados fictícios) */
+.mini-wa { height: 100%; display: flex; flex-direction: column; justify-content: center; gap: 6px; padding: var(--s-5); background: #efeae2; font-size: 14px; line-height: 1.4; }
+.mini-wa .wa__msg { max-width: 86%; }
+.mini-wa .wa__voice { display: flex; align-items: center; gap: 8px; min-width: 180px; }
+.mini-wa .wa__voice i { flex: 1; height: 4px; border-radius: 2px; background: linear-gradient(90deg, #00a884 30%, #c5d3cf 30%); }
+.mini-wa .wa__voice b { width: 26px; height: 26px; border-radius: 50%; background: #00a884; flex: none; position: relative; }
+.mini-wa .wa__voice b::after { content: ""; position: absolute; left: 10px; top: 8px; border-left: 8px solid #fff; border-top: 5px solid transparent; border-bottom: 5px solid transparent; }
+.mini-wa .wa__note { align-self: center; background: #fff3c4; color: #54656f; font-size: 12px; padding: 4px 10px; border-radius: 8px; }
+#whatsapp .panel { --p-h: 230px; padding: 0; overflow: hidden; }
+@media (max-width: 639px) { #whatsapp .panel { --p-h: 200px; } }
+
+/* PRODUTOS: o cartão da Grace e o lugar dos próximos produtos */
+.product-card { display: grid; grid-template-columns: 120px 1fr; gap: var(--s-5); align-items: center; padding: var(--s-6); border-radius: var(--r-lg); background: var(--p-surface); border: 1px solid rgba(15, 38, 36, .12); }
+.product-card__mark { width: 120px; height: 120px; border-radius: var(--r-md); background: #e3f5f1; display: grid; place-items: center; }
+.product-card__mark img { width: 72px; height: 72px; }
+.product-card h2, .product-card h3 { margin: 0 0 var(--s-2); }
+.product-card p { margin: 0 0 var(--s-3); }
+.status { display: inline-flex; align-items: center; gap: 8px; font-size: var(--t-label); font-weight: 500; color: var(--p-accent); }
+.status::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: currentColor; }
+.product-card--next { background: transparent; border-style: dashed; }
+.product-card--next .product-card__mark { background: transparent; border: 1px dashed rgba(15, 38, 36, .25); }
+.hero-products { display: grid; gap: var(--s-5); align-content: start; }
+@media (max-width: 639px) { .product-card { grid-template-columns: 1fr; } .product-card__mark { width: 80px; height: 80px; } .product-card__mark img { width: 48px; height: 48px; } }
+
+/* PÁGINAS LEGAIS: texto corrido, uma coluna de leitura */
+.legal { padding: calc(var(--nav) + var(--s-8)) 0 var(--s-9); }
+.legal .measure { max-width: 70ch; }
+.legal h1 { font-size: clamp(36px, 3vw + 16px, 56px); margin: 0 0 var(--s-3); }
+.legal h2 { font-size: var(--t-h3); margin: var(--s-8) 0 var(--s-3); }
+.legal p, .legal li { font-size: 17px; line-height: 1.7; }
+.legal ul { padding-left: 1.2em; }
+.legal .updated { color: var(--p-muted); font-size: var(--t-small); }
+
+/* PRODUTOS: o herói com os cartões ocupando a altura */
+.hero-products { height: 100%; grid-template-rows: 3fr 2fr; }
+.hero-products .product-card { height: 100%; }
+@media (max-width: 1023px) { .hero-products { height: auto; grid-template-rows: auto; } }
+
+/* PRODUTOS: cronograma da implantação, semana a semana */
+.plan { display: grid; align-content: start; margin-top: var(--s-7); }
+.plan__weeks, .plan__row { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); column-gap: var(--s-6); align-items: center; }
+.plan__weeks { font-size: var(--t-label); color: var(--p-muted); padding-bottom: var(--s-3); }
+.plan__weeks > span:first-child { grid-column: 1; }
+.plan__wk { display: grid; grid-template-columns: repeat(8, 1fr); }
+.plan__wk span { padding-left: 6px; }
+.plan__row { padding: var(--s-4) 0; border-top: 1px solid rgba(15, 38, 36, .12); }
+.plan__text h3 { font-size: var(--t-card); margin: 0 0 4px; }
+.plan__text p { margin: 0; color: var(--p-muted); }
+.plan__track { display: grid; grid-template-columns: repeat(8, 1fr); align-items: center; height: 40px; background: repeating-linear-gradient(90deg, transparent 0 calc(12.5% - 1px), rgba(15, 38, 36, .10) calc(12.5% - 1px) 12.5%); }
+.plan__bar { grid-row: 1; grid-column: var(--a) / var(--b); height: 28px; border-radius: 14px; background: #8fd6d7; }
+.plan__bar--go { background: var(--p-accent); }
+.plan__icons { grid-row: 1; grid-column: 3 / 7; display: flex; gap: 8px; padding-left: 12px; }
+@media (max-width: 639px) { .plan__row { grid-template-columns: 1fr; row-gap: var(--s-3); } .plan__weeks { display: none; } }
+
+
+/* PRODUTOS: segurança com os quatro serviços em ladrilhos */
+.trust { display: grid; grid-template-columns: 1fr 1fr; gap: var(--s-4); margin-top: var(--s-5); }
+.trust__tile { display: grid; justify-items: center; align-content: center; gap: var(--s-3); height: 150px; border-radius: var(--r-md); background: var(--p-surface); border: 1px solid rgba(15, 38, 36, .10); font-size: var(--t-small); font-weight: 500; }
+.product-card.card { padding: var(--s-6); }
+
+/* PRODUTOS no tablet e no celular: cartões de dois em dois e conversas mais curtas */
+@media (min-width: 640px) and (max-width: 1023px) {
+  #whatsapp .grid > .card { grid-column: span 6; }
+  #whatsapp .panel { --p-h: 170px; }
+  #whatsapp .wa__note, #whatsapp .wa__note ~ .wa__msg { display: none; }
+}
+@media (max-width: 639px) {
+  .hero-products .product-card--next, .hero-products .works-with { display: none; }
+  #whatsapp .panel { --p-h: 150px; }
+  #whatsapp .mini-wa { padding: var(--s-3); }
+  #whatsapp .wa__note, #whatsapp .wa__note ~ .wa__msg, #whatsapp .mini-wa .wa__msg:nth-child(n+3) { display: none; }
+  .trust__tile { height: 110px; }
+}
+
+/* ajustes de altura por largura de tela (conferência do kit) */
+@media (min-width: 1024px) and (max-width: 1279px) {
+  #whatsapp .panel { --p-h: 150px; }
+  #whatsapp .wa__note, #whatsapp .wa__note ~ .wa__msg, #whatsapp .mini-wa .wa__msg:nth-child(n+3) { display: none; }
+  #painel .app { max-height: 460px; }
+  #implantacao .plan__text p { display: none; }
+}
+@media (min-width: 640px) and (max-width: 1023px) { #painel .app { max-height: 300px; } }
+@media (max-width: 639px) { #whatsapp .card > p { display: none; } }
+@media (min-width: 1024px) and (max-width: 1279px) {
+  #whatsapp .grid > .card.span-4 { grid-column: span 4; }
+  #painel .app { max-height: 400px; }
+}
+
+/* celular: as duas marcas lado a lado; telas muito estreitas (320) */
+@media (max-width: 639px) { .marks { grid-template-rows: none; grid-template-columns: 1fr 1fr; height: 300px; } .marks__tile svg { width: 70%; } .marks__tile img { width: 46%; } }
+@media (max-width: 359px) {
+  .nav__logo { font-size: 17px; gap: 8px; }
+  .closing .btn--xl { font-size: 18px; white-space: normal; padding-inline: var(--s-4); }
+  .closing h2 { font-size: 28px; }
+  .closing .footer__col { grid-column: 1 / -1; }
+  .footer__legal { flex-wrap: wrap; }
+}
+
+/* v2: faixa azul-marinho com a frase de destaque e os objetivos */
+.band-future .mo-wh__text { max-width: 22ch; }
+.band-future .principles h3 { color: var(--p-inv-ink); }
+.band-future .principles p, .band-future .principles li { color: var(--p-inv-muted); }
+.band-future .t-label { color: var(--teal); }
+.principles ul, .about ul, .ticks { margin: 0; padding-left: 1.1em; }
+.principles li, .about li, .ticks li { margin: 0 0 var(--s-2); }
+.ticks { margin-top: var(--s-4); }
+.ticks li::marker, .about li::marker { color: var(--teal); }
+.about .lead-name { font-size: var(--t-lead); line-height: 1.5; }
+.marks__tile--laplace img { width: min(46%, 220px); }
+.footer .nav__logo img { width: 34px; height: 34px; }
+.ticks, .about ul, .legal ul { list-style: disc; }
+.marks__tile--laplace img { width: min(36%, 220px); height: auto; }
+.marks__tile--grace { background: #e6f6f6; }
+.marks__tile { overflow: hidden; min-height: 0; }
+@media (min-width: 1024px) { .marks { height: min(640px, calc(100svh - 260px)); } .marks__tile--laplace img { width: auto; height: 46%; } .marks__tile--grace img { width: auto; height: 50%; } }
+.marks__tile { display: flex; align-items: center; justify-content: center; }
+@media (min-width: 1024px) { .marks__tile--laplace img, .marks__tile--grace img { flex: none; width: auto; height: 46%; max-height: 220px; } }
+
+/* v2: produtos e páginas legais */
+.product-card__mark--dev { background: #eef0f8; color: var(--p-accent); }
+.product-card__mark--dev svg { width: 56px; height: 56px; }
+.status--dev { color: var(--p-muted); }
+.legal__kicker { color: var(--p-accent); margin: 0 0 var(--s-3); }
+.legal h3 { font-size: var(--t-card); margin: var(--s-6) 0 var(--s-2); }
+.legal h1 { letter-spacing: var(--display-tracking-xl); }
+.legal h2 { padding-top: var(--s-6); border-top: 1px solid rgba(11, 16, 51, .10); }
+.legal li { margin-bottom: var(--s-2); }
+.legal li::marker { color: var(--teal); }
+.legal__n { display: inline-block; min-width: 2.2ch; margin-right: var(--s-3); color: var(--p-accent); font-variant-numeric: tabular-nums; }
+@media (max-width: 639px) {
+  .hero__media.wa-stage { min-height: 272px; }
+  .hero-products .product-card { grid-template-columns: 56px 1fr; gap: var(--s-4); padding: var(--s-4); }
+  .hero-products .product-card p { display: none; }
+  .hero-products .product-card__mark { width: 56px; height: 56px; }
+  .hero-products .product-card__mark img, .hero-products .product-card__mark svg { width: 34px; height: 34px; }
+  .hero-products h2 { font-size: 20px; margin-bottom: 4px; }
+}
+.ticks, .about ul, .principles ul { padding-left: 0; list-style-position: outside; }
+.band-future .principles p { color: #c9cde0; }
+@media (max-width: 639px) { #grace .app.ui { min-height: 400px; } }
+@media (max-width: 639px) { .wa__day { display: none; } .wa__body .wa__msg { font-size: 12px; padding: 5px 8px 3px; } .wa__body { padding: 8px; gap: 6px; } .wa__top { padding: 10px 12px 8px; } }
+
+/* logo do Equik no cartão de Produtos (o "q" tem miolo branco: o ladrilho fica branco) */
+.product-card__mark--dev { background: #ffffff; border: 1px solid rgba(11, 16, 51, .10); }
+.product-card__mark--dev img { width: 76%; height: auto; }
